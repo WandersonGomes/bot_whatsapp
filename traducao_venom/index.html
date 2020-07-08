@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tradução Venom</title>
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+     <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="prism.css">
+</head>
+<body>
+    <div class="content">
+        <section id="introduction">
+            <h2>Venom Bot</h2><hr>
+            <img src="./img/image01.jpeg" alt="imagem01">
+            <div class="text">
+                <p>
+                    O Venom é um sistema de alto desempenho desenvolvido em Javascript para a criação de bots para o Whatsapp.
+                </p>
+                <p>
+                    Ele tem suporte para a criação de qualquer interação, como atendimento ao cliente, envio de mídia, reconhecimento de frases com base em inteligência artificial entre vários outros serviços que possam utilizar o Whatsapp.
+                </p>
+            </div>
+            <img src="./img/image02.png" alt="imagem02">
+        </section>
+        <section>
+            <h2>Funções do Venom</h2><hr>
+            <div class="text">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Funcao</th>
+                            <th class="text-center" scope="col">Disponibilidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Atualização automática de QR Code</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                        <tr>
+                            <td>Envio de texto, imagens, vídeos, áudios e documentos</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                        <tr>
+                            <td>Captura de contatos, conversas, grupos e membros de grupos</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                        <tr>
+                            <td>Envio de Contatos</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                        <tr>
+                            <td>Envio de “Figurinhas”</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                        <tr>
+                            <td> Multiplas sessões</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                        <tr>
+                            <td>Encaminhamento de mensagens</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                        <tr>
+                            <td>Recebimento de mensagens</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                        <tr>
+                            <td>Envio de localização!</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                        <tr>
+                            <td>E muito mais</td>
+                            <td align="center"><img class="img-check" src="./img/check.png" alt="check"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section>
+            <h1>Instalação</h1><hr>
+            <div class="text">
+                <pre><code class="language-javascript">npm i --save venom-bot</code></pre>
+            </div>
+        </section>
+        <section>
+            <h1>Primeiros passos</h1><hr>
+            <div class="text">
+            <pre><code class="language-javascript">//SUPORTA ES6
+//import { create, Whatsapp } from 'venom-bot';
+
+const venom = require('venom-bot');
+
+venom.create().then((client) => start(client));
+
+function start(client) {
+  client.onMessage((message) => {
+    if (message.body === 'Oi') {
+      client.sendText(message.from, 'Bem vindo ão Venom 🕷');
+    }
+  });
+}
+</code></pre>
+
+                <p>
+                    Depois de executar a função create(), o venom vai criar uma instância do whatsapp web. Se você não está logado, ele vai imprimir um QR code no terminal. Escanei-o com seu smartphone e você já vai estar pronto para começar a usar o bot.
+                </p>
+                <p>
+                    O Venom lembrará da sessão , portanto não vai ser necessário autenticar toda as vezes que for usar.
+                </p>
+                <p>
+                    Multiplas sessões podem ser criadas ao mesmo tempo passando o nome da sessão  para a função create():
+                </p>
+            <pre><code class="language-javascript">// Inicializa uma sessão  com o nome vendas
+venom.create('vendas').then((vendasCliente) => {...});
+                   
+// Inicializa uma sessão com o nome de suporte
+venom.create('suporte').then((suporteCliente) => {...});
+</code>
+</pre>                
+            </div>
+        </section>
+        <section>
+            <h2>Parâmetros adicionais do método create()</h2><hr>
+            <div class="text">
+                <p>
+                    O terceiro argumento para o método create() pode receber alguns parâmetros opcionais:
+                </p>
+<pre><code class="language-javascript">create('NomeSessao', qrCallback, {
+            headless: true, // Chrome Headless
+            devtools: false, // Abre as ferramentas para desenvolvedores por padrão
+            useChrome: true, // Se false será usado uma instância do Chromium
+            debug: false, // Abre uma sessão de debug
+            logQR: true // Retorna logs do QR automaticamente no terminal
+            browserArgs: [''] // Parâmetros para serem adicionados na instância do navegador Chrome
+            refreshQR: 15000, // Irá Atualizar o QR a cada 15 segundos, 0 carrega o QR Code uma única vez. O padrão é 30 segundos
+          });
+</code></pre>
+            </div>
+        </section>
+        <section>
+            <h2>Callback para o status da sessão</h2><hr>
+            <div class="text">
+                <p>
+                		obtém e retorna o status da sessão  se é islogged a sessão  foi inicializada ou notLogged caso contrário.
+                </p>
+                <pre><code class="language-javascript">create('NomeSessao', (encontreStatus) => {
+                        console.log(encontreStatus);
+                      })
+                        .then((client) => {
+                          start(client);
+                        })
+                        .catch((erro) => console.log(erro));</code></pre>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Exportando o QR Code</h2><hr>
+            <div class="text">
+                <p>
+                        Por padrão o QR code vai aparecer no terminal. Se você precisar passar o QR para outro local aqui está o codigo:
+                </p>
+                <pre class="language-javascript"><code>const fs = require('fs');
+
+// O segundo parâmetro do método create() é uma callback para o QR Code
+venom.create('session-marketing', (base64Qr, asciiQR) => {
+                        //Para apresentar o QR code no terminal
+                        console.log(asciiQR);
+                        
+                        // Para exporta-lo para um arquivo
+                        exportQR(base64Qr, 'marketing-qr.png');
+                    });
+                        
+// Grava o QR Code no caminho especificado (path)
+function exportQR(qrCode, path) {
+    qrCode = qrCode.replace('data:image/png;base64,', '');
+    const imageBuffer = Buffer.from(qrCode, 'base64');
+                        
+    // Cria o arquivo 'marketing-qr.png' (QR Code)
+    fs.writeFileSync(path, imageBuffer);
+}</code></pre>
+            </div>
+        </section>
+        <section>
+            <h2>Baixando Arquivos</h2><hr>
+            <div class="text">
+                <p>
+                    Puppeter cuida do download de arquivos. A descriptografia está sendo feita o mais rápido possível (ultrapassando os métodos nativos). Suporta arquivos grandes!
+                </p>
+                <pre class="language-javascript"><code>import fs = require('fs');
+import mime = require('mime-types');
+                        
+client.onMessage(async (message) => {
+                if (message.isMedia) {
+                    const buffer = await client.downloadFile(message);
+                    // Neste ponto você pode fazer o que quiser com o Buffer
+                    // Provavelmente você vai guardar em um arquivo
+                    const fileName = `some-file-name.${mime.extension(message.mimetype)}`;
+                    fs.writeFile(fileName, buffer, function (err) {
+                    ...
+                });
+            }
+        });</code></pre>
+            </div>
+        </section>
+        <section>
+            <h2>Funções basicas (uso)</h2><hr>
+            <div class="text">
+                <p>
+                    Nem todas as funções disponíveis estão listadas,para uma consulta rápida, as demais funções disponíveis podem ser encontradas <a href="https://github.com/joedutra/venom/blob/master/src/api/layers">aqui</a> e <a href="https://github.com/joedutra/venom/blob/master/src/lib/wapi/functions"></a>.
+                </p>
+                <h3>Conversa</h3>
+                <p>
+                    Aqui, chatId pode ser <phoneNuber>@c.us ou <phoneNumber>-<groupId>@c.us
+                </p>
+                <pre class="language-javascript"><code>// Enviar um texto básico
+await client.sendText(chatId, '👋 Ola eu sou o venom!');
+                            
+// Enviar uma imagem
+await client.sendImage(
+    chatId,
+    'path/to/img.jpg',
+    'image-name.jpg',
+    'legenda da imagem'
+);
+                            
+// Enviar mensagem com marcação
+await client.sendMentioned(
+    chatId, 
+    'Hello @5218113130740 and @5218243160777!', 
+    ['5218113130740','5218243160777',]
+);
+                            
+// Responde uma mensagem
+await client.reply(
+    chatId, 
+    'Isto é uma resposta!', 
+    message.id.toString()
+);
+                            
+// Enviar um arquivo (O venom vai cuidar dos tipos de arquivo, é necessário apenas passar o local do arquivo)
+await client.sendFile(
+    chatId, 
+    'path/to/file.pdf', 
+    'cv.pdf', 
+    'Descricao do arquivo'
+);
+                            
+// Enivar um gif
+await client.sendVideoAsGif(
+           chatId,
+           'path/to/video.mp4',
+           'video.gif',
+           'Descricao do arquivo'
+);
+                            
+// Enviar um contato
+// contactId: 52155334634@c.us
+await client.sendContact(chatId, contactId);
+                            
+// Encaminhar messagens
+await client.forwardMessages(
+    chatId, 
+    [message.id.toString()], 
+    true
+);
+                            
+// Enviar uma "figurinha"
+await client.sendImageAsSticker(
+    chatId, 
+    'path/to/image.jpg'
+);
+                            
+// Enviar localização
+await client.sendLocation(
+    chatId,
+    25.6801987,
+    -100.4060626,
+    'algum endereco, Washington DC',
+    'subtitulo'
+);
+                            
+// Enviar visualizado ✔️✔️
+await client.sendSeen(chatId);
+                            
+// Digitando...
+await client.startTyping(chatId);
+                            
+// Para o Digitando...
+await client.stopTyping(chatId);
+                            
+// Defini o estado da conversa (0: Typing, 1: Recording, 2: Paused)
+await client.setChatState(chatId, 0 | 1 | 2);</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Recuperando Dados</h3>
+            <div class="text">
+                <pre class="language-javascript"><code>// Pegando todos os contatos
+const contacts = await client.getAllContacts();
+                        
+// Pegando todas as mensagens na conversa
+const allMessages = await client.loadAndGetAllMessagesInChat(chatId);
+                        
+// Pegando o status do contato
+const status = await client.getStatus(contactId);
+                        
+// Pegando perfil do usuário
+const user = await client.getNumberProfile(contactId);
+
+// Pegando todas as mensagens não lidas
+const messages = await client.getAllUnreadMessages();
+
+// Pegando todas as conversas
+const chats = await client.getAllChats();
+
+// Pegando todos os grupos
+const chats = await client.getAllGroups();
+
+// Pegando perfil fic (como url)
+const url = await client.getProfilePicFromServer(chatId);
+
+// Pegando conversa/convesação
+const chat = await client.getChat(chatId);</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Funções de Grupos</h3>
+            <div class="text">
+                <pre class="language-javascript"><code>// groupId or chatId: leaveGroup 52123123-323235@g.us
+
+// Sair do grupo
+await client.leaveGroup(groupId);
+
+// Pegar todos os membros do grupo
+await client.getGroupMembers(groupId);
+
+// Pegando o id dos membros do grupo
+await client.getGroupMembersIds(groupId);
+
+// Gerar convite de grupo como um link
+await client.getGroupInviteLink(groupId);
+
+// Criar grupo (nome do grupo, participantes que serão adicionados)
+await client.createGroup('Group name', ['123123@c.us', '45456456@c.us']);
+
+// Removendo participante
+await client.removeParticipant(groupId, '123123@c.us');
+
+// Adicionando participante
+await client.addParticipant(groupId, '123123@c.us');
+
+// Dando privilégios a um participante (Dando privilégios de administrador)
+await client.promoteParticipant(groupId, '123123@c.us');
+
+// Reduzindo privilégios de participante (Revogando privilégios de administrador)
+await client.demoteParticipant(groupId, '123123@c.us');
+
+// Pegando os administradores do grupo
+await client.getGroupAdmins(groupId);</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Funções de Perfil</h3>
+            <div class="text">
+                <pre class="language-javascript"><code>// Definindo o status
+await client.setProfileStatus('On vacations! ✈️');
+                        
+// Definindo o nome de Perfil
+await client.setProfileName('Venom bot');</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Funções de Dispositivos</h3>
+            <div class="text">
+                <pre class="language-javascript"><code>// Pega informações do Dispositivo
+await client.getHostDevice();
+                            
+// Verifica o status da conexão
+await client.getConnectionState();
+                            
+// Pega o nível da bateria
+await client.getBatteryLevel();
+                            
+// Verifica se está conectado
+await client.isConnected();
+                            
+// Pega a versão do whatsapp web
+await client.getWAVersion();</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Eventos</h3>
+            <div class="text">
+                <pre class="language-javascript"><code>// Ouvindo mensagens
+client.onMessage(message => {
+    ...
+})
+
+// Mudança de estado
+client.onStateChange(state => {
+    ...
+});
+
+// Escutando ack's
+client.onAck(ack => {
+    ...
+});
+
+// Pegando o endereço
+// chatId: 'phone@c.us'
+client.onLiveLocation(chatId, (liveLocation) => {
+    ...
+});
+
+// chatId parece com isto: '5518156745634-1516512045@g.us'
+// Eventos de interface estão aqui: https://github.com/s2click/venom/blob/master/src/api/model/participant-event.ts
+client.onParticipantsChanged(chatId, (event) => {
+    ...
+});
+
+// Se o cliente foi adicionado a um grupo
+client.onAddedToGroup(chatEvent => {
+    ...
+});</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Outros</h3>
+            <div class="text">
+                <pre class="language-javascript"><code>// Deletar conversa
+await client.deleteChat(chatId);
+
+// Limpar mensagens
+await client.clearChat(chatId);
+
+// Deleta mensagem (ultimo parâmetro: deleta somente localmente)
+await client.deleteMessage(chatId, message.id.toString(), false);
+
+// Recebe um número de perfil / verifica se o o número de whatsapp e visualizado
+const profile = await client.getNumberProfile('0000000@c.us');</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Mais...</h3>
+            <div class="text">
+                <p>
+                    Aqui estão algumas ideias e truques para melhorar o uso do Venom.
+                </p>
+                <h4>Manter a sessão sempre ativa:</h4>
+                <pre class="language-javascript"><code>// Caso esteja desconectado do whatsapp web
+// Força a manter a sessão atual
+// Muda o status
+client.onStateChange((state) => {
+    console.log(state);
+    const conflits = [
+    venom.SocketState.CONFLICT,
+    venom.SocketState.UNPAIRED,
+    venom.SocketState.UNLAUNCHED,
+    ];
+    if (conflits.includes(state)) {
+    client.useHere();
+    }
+});</code></pre>
+                <h4>Enviar mensagem para novos contatos (não adicionados)</h4>
+                <p> Vejá também <a href="https://faq.whatsapp.com/en/26000030/">Whatsapp links</a>. Tenha cuidado, pois há grandes chances disso causar um banimento pelo Whatsapp, mantenha sempre seus contatos atualizados!</p>
+                <pre class="language-javascript"><code>await client.sendMessageToId('5212234234@c.us', 'Hello from venom! 👋');</code></pre>
+
+                <h4>Multiplas sessão</h4>
+                <p>Se você precisa rodar multiplas sessões de uma vez só, apenas passe o nome de uma sessão para o método create().</p>
+                <pre class="language-javascript"><code>async () => {
+    const marketingClient = await venom.create('marketing');
+    const salesClient = await venom.create('vendas');
+    const supportClient = await venom.create('suporte');
+};</code></pre>
+
+                <h4>Fechando (salvando) sessão</h4>
+                <p>Feche a sessão corretamente para garantir que a sessão sejá salva na próxima vez que você fizer login (com isso não será necessário o escaneamento do QR Code novamente). Então, em vez de CTRL + C:</p>
+                <pre class="language-javascript"><code>// Captura Ctrl+C
+process.on('SIGINT', function() {
+    client.close();
+});
+
+// Try-catch fechar
+try {
+    ...
+} catch (error) {
+    client.close();
+}</code></pre>
+            </div>
+
+                <h4></h4>
+        </section>
+        
+        <section>
+            <h2>Desenvolvimento</h2><hr>
+            <div class="text">
+                <p>Desenvolver o Venom é realmente simples apesar dele possuir 3 projetos principais embutidos nele.</p>
+            
+                <h5>1. Projeto Wapi</h5>
+                <pre class="language-javascript"><code>npm run build:wapi</code></pre>
+
+                <h5>2. Middleeware</h5>
+                <pre class="language-javascript"><code>npm run build:build:middleware
+npm run build:jsQR</code></pre>
+
+                <h5>3. Venom</h5>
+                <pre class="language-javascript"><code>npm run build:venom</code></pre>
+
+                <h5>Para construir o projeto completo somente rode:</h5>
+                <pre class="language-javascript"><code>npm run build</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h2>Mantenedores</h2>
+            <div class="text">
+                <p>Mantenedores são necessários, eu não posso sozinho dar conta de todas as atualizações. Se você estiver interessado, por favor abra um Pull Request.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Contribuição</h2>
+            <div class="text">
+                <p>Pull requestes são bem vindos. Para maiores mudanças, por favor abra uma issue primeiro para discutir como você poderá fazer a mudança.</p>
+            </div>
+        </section>
+    </div>
+
+    <!--Bootstrap JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="prism.js"></script>
+</body>
+</html>
