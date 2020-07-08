@@ -1,0 +1,5 @@
+//para comecar a trabalhar no projeto
+npm init -y
+
+//para instalar o venom-bot
+npm i --save venom-bot
